@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pdf_generator/helper/pdf_helper.dart';
 import 'package:pdf_generator/helper/pdf_invoice_helper.dart';
-import 'package:pdf_generator/main.dart';
+// import 'package:pdf_generator/main.dart';
 import 'package:pdf_generator/model/customer.dart';
 import 'package:pdf_generator/model/invoice.dart';
 import 'package:pdf_generator/model/supplier.dart';
@@ -9,7 +9,7 @@ import 'package:pdf_generator/widget/button_widget.dart';
 import 'package:pdf_generator/widget/title_widget.dart';
 
 class PdfPage extends StatefulWidget {
-  const PdfPage({super.key});
+  const PdfPage({Key? key}) : super(key: key);
 
   @override
   _PdfPageState createState() => _PdfPageState();
@@ -112,7 +112,7 @@ class _PdfPageState extends State<PdfPage> {
                     );
 
                     final pdfFile = await PdfInvoicePdfHelper.generate(invoice);
-
+                    print(pdfFile);
                     PdfHelper.openFile(pdfFile);
                   },
                 ),

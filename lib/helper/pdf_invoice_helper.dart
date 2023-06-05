@@ -7,6 +7,7 @@ import 'package:pdf_generator/model/supplier.dart';
 import 'package:pdf_generator/utlis.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+// import 'package:pdf_generator/utlis.dart';
 
 class PdfInvoicePdfHelper {
   static Future<File> generate(Invoice invoice) async {
@@ -16,6 +17,7 @@ class PdfInvoicePdfHelper {
 
     pdf.addPage(pw.MultiPage(
       build: (context) => [
+        // pw.Text('Rdiwan', style: pw.TextStyle(font: ttf)),
         buildHeader(invoice, ttf),
         pw.SizedBox(height: 3 * PdfPageFormat.cm),
         buildTitle(invoice, ttf),
@@ -47,15 +49,15 @@ class PdfInvoicePdfHelper {
               ),
             ],
           ),
-          pw.SizedBox(height: 1 * PdfPageFormat.cm),
-          pw.Row(
-            crossAxisAlignment: pw.CrossAxisAlignment.end,
-            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-            children: [
-              buildCustomerAddress(invoice.customer, ttf),
-              buildInvoiceInfo(invoice.info, ttf),
-            ],
-          ),
+          // pw.SizedBox(height: 1 * PdfPageFormat.cm),
+          // pw.Row(
+          //   crossAxisAlignment: pw.CrossAxisAlignment.end,
+          //   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     buildCustomerAddress(invoice.customer, ttf),
+          //     buildInvoiceInfo(invoice.info, ttf),
+          //   ],
+          // ),
         ],
       );
 
@@ -64,9 +66,8 @@ class PdfInvoicePdfHelper {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(customer.name,
-              style: pw.TextStyle(
-                fontWeight: pw.FontWeight.bold,
-              )),
+              style:
+                  pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 20)),
           pw.Text(customer.address),
         ],
       );
@@ -112,7 +113,7 @@ class PdfInvoicePdfHelper {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(
-            'Fist PDF',
+            'First PDF',
             style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 0.8 * PdfPageFormat.cm),
@@ -143,7 +144,7 @@ class PdfInvoicePdfHelper {
       ];
     }).toList();
 
-    return pw.Table.fromTextArray(
+    return pw.TableHelper.fromTextArray(
       headers: headers,
       data: data,
       border: null,

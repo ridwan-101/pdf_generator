@@ -9,10 +9,14 @@ import 'package:pdf_generator/widget/button_widget.dart';
 import 'package:pdf_generator/widget/title_widget.dart';
 
 class PdfPage extends StatefulWidget {
-  const PdfPage({Key? key}) : super(key: key);
+  final Supplier supplier;
+  const PdfPage({
+    super.key,
+    required this.supplier,
+  });
 
   @override
-  _PdfPageState createState() => _PdfPageState();
+  State<PdfPage> createState() => _PdfPageState();
 }
 
 class _PdfPageState extends State<PdfPage> {
@@ -43,11 +47,7 @@ class _PdfPageState extends State<PdfPage> {
                     );
 
                     final invoice = Invoice(
-                      supplier: const Supplier(
-                        name: 'Faysal Neowaz',
-                        address: 'Dhaka, Bangladesh',
-                        paymentInfo: 'https://paypal.me/codespec',
-                      ),
+                      supplier: widget.supplier,
                       customer: const Customer(
                         name: 'Google',
                         address: 'Mountain View, California, United States',
@@ -112,7 +112,6 @@ class _PdfPageState extends State<PdfPage> {
                     );
 
                     final pdfFile = await PdfInvoicePdfHelper.generate(invoice);
-                    print(pdfFile);
                     PdfHelper.openFile(pdfFile);
                   },
                 ),
